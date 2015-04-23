@@ -48,6 +48,7 @@ class IRCConnection:
 		while self._running:
 			while not self._connected:
 				self.connect()
+				time.sleep( 5 )
 
 			data = self._socket.recv( 4096 )
 			

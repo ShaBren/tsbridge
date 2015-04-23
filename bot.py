@@ -6,7 +6,7 @@ from TSConnection import TSConnection
 freenode = IRCConnection( "chat.freenode.net", 6667, "CLTSBridge", "#cubelime" )
 freenode.run()
 
-ts = TSConnection( "localhost", 10011, "CLTSBridge2", "admin", "RQPr2bWT" )
+ts = TSConnection( "localhost", 10011, "CLTSBridge", "admin", "RQPr2bWT" )
 ts.run()
 
 TYPE = 0
@@ -24,6 +24,8 @@ def build_message( event ):
 		return "* %s %s" % ( event[1], event[3] )
 	elif event[TYPE] == "ENTER":
 		return "*** %s joined the channel ***" % ( event[1], )
+	elif event[TYPE] == "CONNECT":
+		return "*** %s connected ***" % ( event[1], )
 	elif event[TYPE] == "LEAVE":
 		return "*** %s left the channel ***" % ( event[1], )
 	elif event[TYPE] == "QUIT":

@@ -104,7 +104,7 @@ class TSConnection:
 				elif command == "notifycliententerview":
 					msg_from = self.decode( args["client_nickname"] )
 					self._client_map[ args["clid"] ] = msg_from
-					self._recv_queue.put( ( "ENTER", msg_from, "" ) )
+					self._recv_queue.put( ( "CONNECT", msg_from, "" ) )
 				elif command == "notifyclientleftview":
 					msg_from = self._client_map[args["clid"]]
 					del self._client_map[args["clid"]]
