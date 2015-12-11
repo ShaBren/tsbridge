@@ -3,10 +3,13 @@ import time
 from IRCConnection import IRCConnection
 from TSConnection import TSConnection
 
+with open( 'querypass.txt' ) as passfile:
+	querypass = passfile.read()
+
 freenode = IRCConnection( "chat.freenode.net", 6667, "CLTSBridge", "#cubelime" )
 freenode.run()
 
-ts = TSConnection( "localhost", 10011, "CLTSBridge", "admin", "RQPr2bWT" )
+ts = TSConnection( "localhost", 10011, "CLTSBridge", "admin", querypass )
 ts.run()
 
 TYPE = 0
