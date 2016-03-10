@@ -70,7 +70,7 @@ class IRCConnection:
 				if line[1] == 'PRIVMSG':
 					msg_from = line[0].split('!')[0].lstrip(':')
 					msg_to = line[2]
-					msg = " ".join(line[3:]).lstrip(':')
+					msg = " ".join(line[3:])[1:]
 					
 					if msg_to == self._nick:
 						channel = msg_from

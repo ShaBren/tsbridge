@@ -1,4 +1,4 @@
-import socket, threading, time, traceback
+import socket, threading, time, traceback, re
 
 from queue import Queue
 
@@ -17,6 +17,7 @@ class TSConnection:
 		self._username = username
 		self._password = password
 		self._socket = socket.socket()
+		self._match_url = re.compile( r'(https?://[^\s<>"]+|www\.[^\s<>"]+)' )
 
 	def run( self ):
 		self._log = open( "ts.log", 'a', 1 )
@@ -81,7 +82,7 @@ class TSConnection:
 
 				data.strip()
 
-				#self._log.write( data + "\n" )
+				self._log.write( data + "\n" )
 
 				parts = data.split()
 
@@ -129,6 +130,7 @@ class TSConnection:
 				print( traceback.format_exc() )
 
 	def encode( self, data ):
+		data = self._match_url.sub( "[URL]\g<1>[/URL]", data )
 		data = data.replace('\\', '\\\\')
 		data = data.replace('/', '\\/')
 		data = data.replace(' ', '\\s')
@@ -136,6 +138,7 @@ class TSConnection:
 		data = data.replace('\n', '\\n')
 		data = data.replace('\r', '\\r')
 		data = data.replace('\t', '\\t')
+
 		return data
 
 	def decode( self, data ):
